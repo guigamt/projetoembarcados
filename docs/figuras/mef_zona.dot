@@ -1,0 +1,9 @@
+digraph G { fontname="Helvetica"; rankdir=LR; nodesep=0.5; ranksep=0.9; node [fontname="Helvetica", fontsize=11, shape=circle, width=1.25, fixedsize=true, style=filled, fillcolor="#f4f6f8", color="#51606e"]; edge [fontname="Helvetica", fontsize=9, color="#51606e"];
+ ini [shape=point, width=0.12]; 
+ ISO [label="ISOLADA\nAL=0 DEG=1", fillcolor="#e3e6ea"]; MON [label="MONITORA\nAL=0 DEG=F"]; VIG [label="VIGIA\nAL=0 DEG=F", fillcolor="#dff5ea"];
+ CON [label="CONFIRMA\nAL=1 DEG=0", fillcolor="#fff0cf"]; ALN [label="AL_NORMAL\nAL=1 DEG=0", fillcolor="#ffd9d9"]; ALD [label="AL_DEG\nAL=1 DEG=1", fillcolor="#ffc2c2"];
+ ini->MON [label="reset"]; ISO->MON [label="EN=1 e\ndesarmada"]; MON->VIG [label="armada, diag ok\nRU=00"];
+ VIG->CON [label="RU=01 ou 10\nF=0  (t=0)"]; VIG->ALN [label="RU=11, F=0"]; VIG->ALD [label="F=1 e\nevidência"];
+ CON->ALN [label="RU=11\nt ≤ Tcorr"]; CON->ALD [label="t ≥ Tcorr e RU≠11\nou F=1"]; CON->CON [label="RU≠11, t<Tcorr\n(t continua)"];
+ ALN->ALD [label="F=1"]; VIG->MON [label="desarme"]; CON->MON [label="desarme", constraint=false]; ALN->MON [label="desarme", constraint=false]; ALD->MON [label="desarme\n(DEG retido)", constraint=false];
+ MON->ISO [label="EN=0\n(de qualquer estado)", style=dashed]; }

@@ -1,0 +1,3 @@
+digraph G { rankdir=TB; nodesep=0.3; ranksep=0.35; fontname="Helvetica"; node [fontname="Helvetica", fontsize=12, shape=box, style="rounded,filled", fillcolor="#f4f6f8", color="#51606e"]; edge [fontname="Helvetica", fontsize=10, color="#51606e"];
+ u [label="Usuário\n(botão ou voz)"]; a [label="App"]; b [label="Backend\nautoriza (PIN no desarme)\ncmd_id + validade 15 s"]; h [label="IoT Hub\ndirect method"]; e [label="ESP32\nconfere validade\ne cmd_id repetido"]; f [label="FPGA\nMEF central"];
+ u->a [label="1 pedido"]; a->b [label="2 POST /api/comando"]; b->h [label="3 HTTPS"]; h->e [label="4 MQTT/TLS"]; e->f [label="5 ARM_REQ"]; f->e [label="6 CMD_ACK + CMD_OK"]; e->h [label="7 resposta"]; h->b [label="8"]; b->a [label="9 confirmado /\nrecusado /\nsem confirmação"]; }

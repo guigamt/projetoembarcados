@@ -1,0 +1,3 @@
+digraph G { rankdir=TB; nodesep=0.3; ranksep=0.35; fontname="Helvetica"; node [fontname="Helvetica", fontsize=12, shape=box, style="rounded,filled", fillcolor="#f4f6f8", color="#51606e"]; edge [fontname="Helvetica", fontsize=10, color="#51606e"];
+ f [label="Saída do FPGA\n3,3 V"]; r [label="Resistor 330 Ω"]; o [label="Optoacoplador PC817\n(isola os 12 V do FPGA)", fillcolor="#fff6dd"]; g [label="Gate do MOSFET\n+ 10 kΩ para o GND"]; m [label="MOSFET IRF540N\n(chave no lado do GND)", fillcolor="#ffe3e3"]; c [label="Carga 12 V\nsirene / bomba / relé\n+ diodo 1N4007 em paralelo", fillcolor="#ffe3e3"];
+ f->r->o->g->m->c; }

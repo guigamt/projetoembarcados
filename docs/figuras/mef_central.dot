@@ -1,0 +1,6 @@
+digraph G { fontname="Helvetica"; rankdir=LR; nodesep=0.6; ranksep=1.0; node [fontname="Helvetica", fontsize=11, shape=circle, width=1.35, fixedsize=true, style=filled, fillcolor="#f4f6f8", color="#51606e"]; edge [fontname="Helvetica", fontsize=9, color="#51606e"];
+ ini [shape=point, width=0.12];
+ D [label="DESARMADO\ndisplay d"]; A [label="ARMADO\ndisplay A", fillcolor="#dff5ea"]; T [label="ATRASO\nA + contagem\nbip", fillcolor="#fff0cf"]; U [label="DISPARO\ndisplay U\nsirene + contra.", fillcolor="#ffc2c2"];
+ ini->D [label="reset"]; D->A [label="arm_req e todas as\nzonas habilitadas prontas\n(cmd_ok=1)"]; D->D [label="arm_req com zona\nnão pronta (cmd_ok=0)"];
+ A->T [label="algum AL_Z\natraso > 0"]; A->U [label="algum AL_Z\natraso = 0"]; T->U [label="contagem = 0"];
+ A->D [label="disarm_req", constraint=false]; T->D [label="disarm_req", constraint=false]; U->D [label="disarm_req", constraint=false]; }

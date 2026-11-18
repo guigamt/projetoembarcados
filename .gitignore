@@ -1,0 +1,19 @@
+# Vivado
+fpga/vivado/
+fpga/sim_out/
+*.jou
+*.log
+.Xil/
+# Python
+__pycache__/
+.pytest_cache/
+venv/
+*.db
+*.db-wal
+*.db-shm
+# segredos
+.env
+esp32/include/secrets.h
+# PlatformIO / Node
+.pio/
+node_modules/

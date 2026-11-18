@@ -1,0 +1,15 @@
+digraph G { rankdir=TB; nodesep=0.3; ranksep=0.45; fontname="Helvetica"; node [fontname="Helvetica", fontsize=11, shape=box, style="rounded,filled", fillcolor="#f4f6f8", color="#51606e"]; edge [fontname="Helvetica", fontsize=9, color="#51606e"];
+ subgraph cluster_casa { label="Maquete da casa (4 zonas)"; style="rounded"; color="#9aa7b3"; fontsize=11;
+   z1 [label="Z1 Sala\nreed + ultrassom"]; z2 [label="Z2 Quarto\nreed + barreira IR"]; z3 [label="Z3 Corredor\nPIR + ultrassom"]; z4 [label="Z4 Garagem\nbarreira IR + PIR"]; }
+ cabos [label="Central de cabos\nbornes por zona\ndivisores 5V→3V3", fillcolor="#fff6dd"];
+ subgraph cluster_fpga { label="FPGA Basys 3 (decide o alarme)"; style="rounded"; color="#19b37b"; fontsize=11;
+   sens [label="sensores\n(debounce, HC-SR04)"]; mz [label="4 × MEF de zona"]; mc [label="MEF central\natraso 0–120 s"]; gp [label="GPIO ESP\n+ watchdog externo"]; sens->mz->mc; mz->gp; mc->gp; }
+ pot [label="Estágio de potência 12 V\nsirene · estrobo 10 W\nbomba de névoa · relé da cerca", fillcolor="#ffe3e3"];
+ esp [label="ESP32\nfila de eventos\ntask watchdog\nMQTT + TLS", fillcolor="#e2efff"];
+ hub [label="Azure IoT Hub (F1)\nMQTT 8883", fillcolor="#e2efff"];
+ back [label="Backend (Flask)\nbanco SQLite\nestatísticas · IA\nagente", fillcolor="#e2efff"];
+ app [label="App (PWA React)\npainel · histórico\nvoz", fillcolor="#e2efff"];
+ al [label="Alertas\ne-mail · WhatsApp\nTelegram", fillcolor="#e2efff"];
+ z1->cabos; z2->cabos; z3->cabos; z4->cabos; cabos->sens [label="3,3 V"];
+ mc->pot [label="4 saídas"]; gp->esp [label="DADOS[3:0] SOF REQ"]; esp->gp [label="ACK, ARM/DISARM\nheartbeat"];
+ esp->hub [label="eventos QoS 1"]; hub->esp [label="comando\n(direct method)"]; hub->back; back->hub; back->app [dir=both, label="HTTPS"]; back->al; }

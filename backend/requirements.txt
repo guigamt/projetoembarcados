@@ -1,0 +1,7 @@
+flask>=3.0
+pyjwt>=2.8
+requests>=2.31
+python-dotenv>=1.0
+scikit-learn>=1.4
+azure-eventhub>=5.11
+gunicorn>=22.0 ; platform_system != "Windows"
